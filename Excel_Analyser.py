@@ -40,15 +40,16 @@ class excel_analyser(object):
                         zhongshu   = str(table.cell_value(i,j))
                         zhongshudi = zhongshu.split('/')[0] #中枢顶
                         zhongshuding = zhongshu.split('/')[1] #中枢底
-                        if '1' in str(table.cell_value(i,j+1)): #判断当前中枢是否已经有仓位
-                            #print(table.cell_value(i,j))
-                            if(float(current_stock_price) >= float(zhongshuding)):
-                                msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
-                                msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发1D中枢卖出 @Strategy Monitor", stock_name+", 触发中枢: 1D -> "+zhongshu, "")
-                        else:
-                            if(float(current_stock_price) <= float(zhongshudi)):
-                                msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
-                                msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发1D中枢买入 @Strategy Monitor", stock_name+", 触发中枢: 1D -> "+zhongshu, "")
+                        if not 'pending' in str(table.cell_value(i,j+1)): #pending格的计划被跳过
+                            if '1' in str(table.cell_value(i,j+1)): #判断当前中枢是否已经有仓位
+                                #print(table.cell_value(i,j))
+                                if(float(current_stock_price) >= float(zhongshuding)):
+                                    msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
+                                    msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发1D中枢卖出 @Strategy Monitor", stock_name+", 触发中枢: 1D -> "+zhongshu, "")
+                            else:
+                                if(float(current_stock_price) <= float(zhongshudi)):
+                                    msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
+                                    msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发1D中枢买入 @Strategy Monitor", stock_name+", 触发中枢: 1D -> "+zhongshu, "")
             #处理30分钟级别中枢
             if '30F' in table.cell_value(i, 0):
                 for j in range(cols_num):
@@ -56,17 +57,18 @@ class excel_analyser(object):
                         zhongshu = str(table.cell_value(i, j))
                         zhongshudi = zhongshu.split('/')[0]  # 中枢顶
                         zhongshuding = zhongshu.split('/')[1]  # 中枢底
-                        if '1' in str(table.cell_value(i, j + 1)):  # 判断当前中枢是否已经有仓位
-                            # print(table.cell_value(i,j))
-                            if (float(current_stock_price) >= float(zhongshuding)):
-                                msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
-                                msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发30F中枢卖出 @Strategy Monitor",
-                                                        stock_name + ", 触发中枢: 30F -> " + zhongshu, "")
-                        else:
-                            if (float(current_stock_price) <= float(zhongshudi)):
-                                msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
-                                msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发30F中枢买入 @Strategy Monitor",
-                                                        stock_name + ", 触发中枢: 30F -> " + zhongshu, "")
+                        if not 'pending' in str(table.cell_value(i, j + 1)):  # pending格的计划被跳过
+                            if '1' in str(table.cell_value(i, j + 1)):  # 判断当前中枢是否已经有仓位
+                                # print(table.cell_value(i,j))
+                                if (float(current_stock_price) >= float(zhongshuding)):
+                                    msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
+                                    msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发30F中枢卖出 @Strategy Monitor",
+                                                            stock_name + ", 触发中枢: 30F -> " + zhongshu, "")
+                            else:
+                                if (float(current_stock_price) <= float(zhongshudi)):
+                                    msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
+                                    msg_senders0.send_email(["420195048@qq.com"], "MSG: 触发30F中枢买入 @Strategy Monitor",
+                                                            stock_name + ", 触发中枢: 30F -> " + zhongshu, "")
 if __name__=="__main__":
     xl_analyser0 = excel_analyser()
     my_table=xl_analyser0.zs_wg_analyse(r'C:\Users\hyqin\Desktop\Strategy_Monitor\zhongshu_wangge.xlsx')
