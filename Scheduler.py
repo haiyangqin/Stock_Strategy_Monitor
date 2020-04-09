@@ -7,7 +7,7 @@ import time
 import threading
 import Excel_Analyser
 
-def job0():
+def job0(): #个股操作中枢观测
     print("job0 is running !!!")
     xl_analyser0 = Excel_Analyser.excel_analyser()
     my_table = xl_analyser0.zs_wg_analyse(r'C:\Users\hyqin\Desktop\Strategy_Monitor\zhongshu_wangge.xlsx')

@@ -292,13 +292,17 @@ def txt_xls(filename, xlsname):
 if __name__ == "__main__":
     name = get_userInfo(id)
 
-    file = str(name) + id + ".txt"
-
-    get_weibo(id, file)
-
-    txtname = file
+    txtname = str(name) + id + ".txt"
 
     xlsname = str(name) + id + ".xls"
+
+    if (os.path.exists(txtname)):
+        os.remove(txtname) #删除上一次抓取的文件
+
+    if (os.path.exists(xlsname)):
+        os.remove(xlsname) #删除上一次抓取的文件
+
+    get_weibo(id, txtname)
 
     txt_xls(txtname, xlsname)
 
