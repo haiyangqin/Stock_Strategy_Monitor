@@ -2,10 +2,18 @@
 
 #encoding=utf-8
 import xlrd
+import pandas as pd
 import Stock_Monitor
 import Files_EmailSender
 
 class excel_analyser(object):
+
+    def csv2xl(self,csv_name):
+        '''
+        csv转xl
+        '''
+        csv=pd.read_csv(csv_name,encoding='utf-8')
+        csv.to_excel(r'zhongshu_wangge.xlsx', sheet_name='tmp_data')
 
     def zs_wg_analyse(self,xl_name):
         '''
@@ -71,4 +79,4 @@ class excel_analyser(object):
                                                             stock_name + ", 触发中枢: 30F -> " + zhongshu, "")
 if __name__=="__main__":
     xl_analyser0 = excel_analyser()
-    my_table=xl_analyser0.zs_wg_analyse(r'C:\Users\hyqin\Desktop\Strategy_Monitor\zhongshu_wangge.xlsx')
+    my_table=xl_analyser0.zs_wg_analyse(r'C:\Users\hyqin\Desktop\my_test\zhongshu_wangge.xlsx')
