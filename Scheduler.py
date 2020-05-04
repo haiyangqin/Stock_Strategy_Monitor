@@ -12,7 +12,7 @@ def job0(): #个股操作中枢观测
     now_time = time.localtime()
     my_time = (now_time.tm_hour)*100 + now_time.tm_min
     #print(my_time)
-    if ((my_time >= 920) and (my_time < 1130 )) or ((my_time >= 1257) and (my_time < 1500 )):
+    if ((my_time >= 925) and (my_time < 1130 )) or ((my_time >= 1257) and (my_time < 1500 )):
         xl_analyser0 = Excel_Analyser.excel_analyser()
         my_table = xl_analyser0.zs_wg_analyse(r'.\zhongshu_wangge.xlsx')
 
