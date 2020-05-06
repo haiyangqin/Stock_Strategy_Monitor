@@ -58,4 +58,4 @@ class Carry_files_EmailSender(object):
 
 if __name__=="__main__":
     senders = Carry_files_EmailSender()
-    senders.send_email(["420195048@qq.com"], "测试邮件发送的标题", "这是一个测试邮件发送的内容",r"E:\test\test.txt")
+    senders.send_email(["420195048@qq.com"], "测试邮件发送的标题", "这是一个测试邮件发送的内容",r"C:\Users\hyqin\Desktop\my_test\test.txt")
