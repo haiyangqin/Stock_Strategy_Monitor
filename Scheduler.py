@@ -25,7 +25,7 @@ def run_threaded(job_func):
     job_thread = threading.Thread(target=job_func)
     job_thread.start()
 
-schedule.every(10).seconds.do(run_threaded, job0)
+schedule.every(15).seconds.do(run_threaded, job0)
 #schedule.every(10).seconds.do(run_threaded, job)
 #schedule.every(10).seconds.do(run_threaded, job2)
 
