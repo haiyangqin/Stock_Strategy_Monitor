@@ -12,7 +12,7 @@ class Carry_files_EmailSender(object):
     def __init__(self):
         self.smtp_host = 'smtp.qq.com' # 发送邮件的smtp服务器(QQ邮箱："smtp.qq.com"，163邮箱："smtp.163.com")
         self.smtp_from_email = '420195048@qq.com' # 邮件发送者的邮箱
-        self.smtp_pwd = 'ymsflejbgplibjfe' # 邮件发送者的邮箱的授权码
+        self.smtp_pwd = 'qdrgbrqaprxccaih' # 邮件发送者的邮箱的授权码
         self.smtp_port = '465' # smtp邮箱的端口，默认是465
 
     def send_email(self, receivers, title, content,files_part=None):
