@@ -34,6 +34,7 @@ class excel_analyser(object):
                 stock_id = content.split('（')[1].split('）')[0] #股票代码
                 temp = Stock_Monitor.Share(stock_id,0,0)
                 geted_info = Stock_Monitor.getrealtimedata(temp)
+                #print(geted_info.describe) #DBG --> stock info
                 geted_stock_name = geted_info.describe.split('股票名称：')[1].split('，')[0].replace(' ','')
                 if(geted_stock_name != stock_name):
                    print('股票名称和代码不对应，请检查excel表格！')
@@ -96,6 +97,7 @@ class excel_analyser(object):
                             if '1' in str(table.cell_value(i, j + 1)):  # 判断当前中枢是否已经有仓位
                                 # print(table.cell_value(i,j))
                                 if (float(current_stock_price) >= float(zhongshuding)):
+                                    #print('DBG --> 5F, current_stock_price:'+current_stock_price+' '+'zhongshuding:'+zhongshuding)
                                     msg_senders0 = Files_EmailSender.Carry_files_EmailSender()
                                     msg_senders0.send_email(["420195048@qq.com"],
                                                             "MSG: 触发5F中枢卖出 @Strategy Monitor",
