@@ -1,5 +1,7 @@
 
 import os
+import datetime
+import time
 import requests
 from lxml import etree
 import re
@@ -83,7 +85,7 @@ def write_article(article):
     f = open(file_name, 'a', encoding='utf-8')
     title = list(article.keys())[0]
     f.write("(●'◡'●)："+title + '\n')
-    #for content in article[title]: //只要标题，不要内容
+    #for content in article[title]: #只要标题，不要内容
     #    f.write(content+"\n")
     f.write("\n\n")
     f.close()
@@ -97,25 +99,28 @@ def extract_url(url):
 
 if __name__ == '__main__':
     txtname = 'hotnews.txt'
+    today = str(datetime.date.today())
+    my_date = today.replace("-","")
+    #print(my_date)
     #以下网址为新浪统计点击量的地址
-    url0 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_0_suda&top_time=20210218&top_show_num=25&top_order=DESC&js_var=all_1_data&get_new=1" #总榜，可在此修改条数
-    url1 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_news_0_suda&top_time=20210218&get_new=1&top_show_num=20&top_order=DESC&js_var=all_1_data" #新闻榜，可在此修改条数
-    url2 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_not_url=/ustock/&top_type=day&top_cat=finance_stock_conten_suda&top_time=20210218&top_show_num=20&top_order=DESC&get_new=1&js_var=stock_1_data" #证券榜，可在此修改条数
-    url3 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_money_suda&top_time=20210218&top_show_num=20&top_order=DESC&get_new=1&js_var=money_1_data" #理财榜，可在此修改条数
+    url0 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_0_suda&top_time="+my_date+"&top_show_num=20&top_order=DESC&js_var=all_1_data&get_new=1" #总榜，可在此修改条数
+    url1 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_news_0_suda&top_time="+my_date+"&get_new=1&top_show_num=20&top_order=DESC&js_var=all_1_data" #新闻榜，可在此修改条数
+    url2 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_not_url=/ustock/&top_type=day&top_cat=finance_stock_conten_suda&top_time="+my_date+"&top_show_num=20&top_order=DESC&get_new=1&js_var=stock_1_data" #证券榜，可在此修改条数
+    url3 = "http://top.finance.sina.com.cn/ws/GetTopDataList.php?top_type=day&top_cat=finance_money_suda&top_time="+my_date+"&top_show_num=20&top_order=DESC&get_new=1&js_var=money_1_data" #理财榜，可在此修改条数
 
     if (os.path.exists(txtname)):
         os.remove(txtname) #删除上一次抓取的文件
 
-    href_list0 = get_topnews_url(url=url0)
-    href_list1 = get_topnews_url(url=url1)
-    href_list2 = get_topnews_url(url=url2)
+    href_list0 = get_topnews_url(url=url0)  #总榜
+    href_list1 = get_topnews_url(url=url1)  #新闻榜
+    href_list2 = get_topnews_url(url=url2)  #股票榜
     #print(href_list0)
     #href_list = extract_url(url=url)
     #print(href_list)
-    for href in href_list0:
+    for href in href_list2:
         # 排除非新浪连接
         print(href)
-        if href.startswith("https://finance.sina.com.cn/") or href.startswith("https://finance.sina.com.cn/") :
+        if href.startswith("https://finance.sina.com.cn/roll") or href.startswith("https://finance.sina.com.cn/stock") :
             try:
                 html = search_article(href)
                 article = parse_html(html)
