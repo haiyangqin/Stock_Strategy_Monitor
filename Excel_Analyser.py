@@ -6,6 +6,7 @@ import pandas as pd
 import Stock_Monitor
 import Files_EmailSender
 import Draw_Picture
+import datetime
 
 class excel_analyser(object):
 
@@ -166,7 +167,35 @@ class excel_analyser(object):
         print(current_positions)
         positions_drawer0.draw_rose_piture(current_positions)
 
+    def yield_analyse(self, xl_name):
+        '''
+        中枢 网格 表
+        xl_name: 表格名称
+        '''
+        xl_opened = xlrd.open_workbook(xl_name)
+        table = xl_opened.sheets()[0]
+        rows_num = table.nrows
+        cols_num = table.ncols
+        # print(rows_num)
+        # print(cols_num)
+        my_date = []
+        my_ratio = []
+        for i in range(1,rows_num): #row 1 is the title
+             date = xlrd.xldate_as_tuple(table.cell_value(i,0),0)
+             current_date = str(date[1])+'-'+str(date[2])
+             current_ratio = table.cell_value(i,2) * 100
+             if(current_date != ''):
+               my_date.append(current_date)
+             if(current_ratio != ''):
+               my_ratio.append(current_ratio)
+        #print(my_date,my_ratio)
+        return my_date,my_ratio
+
+
+
+
 if __name__=="__main__":
     xl_analyser0 = excel_analyser()
     #my_table=xl_analyser0.zs_wg_analyse(r'C:\Users\hyqin\Desktop\my_test\zhongshu_wangge.xlsx')
-    my_positions=xl_analyser0.zs_wg_analyse_positions(r'.\zhongshu_wangge.xlsx')
+    #my_positions=xl_analyser0.zs_wg_analyse_positions(r'.\zhongshu_wangge.xlsx')
+    my_positions=xl_analyser0.yield_analyse(r'.\yield.xlsx')
