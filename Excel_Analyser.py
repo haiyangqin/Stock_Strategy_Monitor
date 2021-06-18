@@ -188,7 +188,7 @@ class excel_analyser(object):
                my_date.append(current_date)
              if(current_ratio != ''):
                my_ratio.append(current_ratio)
-        #print(my_date,my_ratio)
+        print(my_date,my_ratio)
         return my_date,my_ratio
 
 
@@ -197,5 +197,5 @@ class excel_analyser(object):
 if __name__=="__main__":
     xl_analyser0 = excel_analyser()
     #my_table=xl_analyser0.zs_wg_analyse(r'C:\Users\hyqin\Desktop\my_test\zhongshu_wangge.xlsx')
-    #my_positions=xl_analyser0.zs_wg_analyse_positions(r'.\zhongshu_wangge.xlsx')
-    my_positions=xl_analyser0.yield_analyse(r'.\yield.xlsx')
+    my_positions=xl_analyser0.zs_wg_analyse_positions(r'.\zhongshu_wangge.xlsx')
+    #my_positions=xl_analyser0.yield_analyse(r'.\yield.xlsx')
