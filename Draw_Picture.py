@@ -160,7 +160,7 @@ class Picture_Drawer(object):
                             ),
                             graphic_textstyle_opts=opts.GraphicTextStyleOpts(
                                 # 可以通过jsCode添加js代码，也可以直接用字符串
-                                text="Tatal:"+str(total_position)+"%",
+                                text="Total:"+str(total_position)+"%",
                                 font="bolder 21px Microsoft YaHei",
                                 graphic_basicstyle_opts=opts.GraphicBasicStyleOpts(
                                     fill="#C537B6"
